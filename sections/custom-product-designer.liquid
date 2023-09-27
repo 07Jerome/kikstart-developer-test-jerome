@@ -1,0 +1,95 @@
+{{ 'custom-designer.css' | asset_url | stylesheet_tag }}
+{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+{{ 'bootstrap.min.js' | asset_url | script_tag }}
+{{ 'jquery.min.js' | asset_url | script_tag }}
+
+
+<div class="container">
+  <div class="row mb-5">
+    {%- if section.settings.section_header != blank -%}
+      <div class="col-12 text-center">
+        <h2>{{ section.settings.section_header }}</h2>
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="row">
+
+    {%- for designer in shop.metaobjects.product_ingredients.values -%}
+      {%- if designer.enable == true -%}
+        <div class="col-xl-3 col-lg-3 col-md-12 text-center card-item">
+          <img src="{{ designer.image | img_url: 'medium' }}" alt="{{ designer.image.alt }}">
+          <h3>{{ designer.display_name }}</h3>
+          <p>{{ designer.brief_description }}</p>
+          <a
+            href="#"
+            class="toggle mt-2"
+            data-target="myPopup"
+            data-img="{{ designer.image | img_url: 'medium' }}"
+            data-name="{{ designer.display_name }}"
+            data-info="{{ designer.other_info }}"
+            data-main-des="{{ designer.main_description }}">Learn More</a>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<div id="myPopup" class="popup hide">
+  {% render 'designer-popup-info' %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Product Designer",
+    "tag": "section",
+    "class": "product-designer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_header",
+        "label": "Section Header",
+        "default": "Put Some Title"
+      }, {
+        "id": "linktext",
+        "type": "text",
+        "label": "Button text",
+        "default": "Learn More"
+      }, {
+        "id": "link",
+        "type": "url",
+        "label": "Button link"
+      }
+    ],
+
+    "presets": [
+      {
+        "category": "Product Designer",
+        "name": "Product Designer",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
+
+
+<script>
+  $(document).on('click', '.toggle', function(event) {
+    event.preventDefault();
+
+    var target = $(this).data('target');
+
+    let designer_img = $(this).data('img');
+    let designer_name = $(this).data('name');
+    let designer_other_info = $(this).data('info');
+    let designer_main_des = $(this).data('main-des');
+
+    $('.design-img').attr('src', designer_img);
+    $('.design-name').text(designer_name);
+    $('.design-info').text(designer_other_info);
+    $('.design-main-des').text(designer_main_des);
+    $('.dis-block').text(designer_main_des);
+    $('#' + target).toggleClass('hide');
+
+  });
+</script>

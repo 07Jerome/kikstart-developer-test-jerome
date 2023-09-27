@@ -17,7 +17,7 @@
     {%- for designer in shop.metaobjects.product_ingredients.values -%}
       {%- if designer.enable == true -%}
 
-        <div class="col-xl-3 col-lg-3 col-md-12 text-center card-item">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 text-center card-item">
           <img src="{{ designer.image | img_url: 'medium' }}" alt="{{ designer.image.alt }}">
           <h3>{{ designer.display_name }}</h3>
           {{ designer.brief_description | metafield_tag }}
@@ -97,8 +97,7 @@
     let designerID = $(this).data('id');
     let designer_popup = $(`.popup-head[data-id="${designerID}"]`).html();
     $('.popup-container .popup-head').html(designer_popup);
-
     $('#' + target).toggleClass('hide');
-
+    
   });
 </script>

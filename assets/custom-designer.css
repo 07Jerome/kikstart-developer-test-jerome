@@ -5,6 +5,9 @@
 .product-designer h2 {
   font-family: Assistant, sans-serif;
 }
+section.product-designer {
+    margin: 100px 0;
+}
 
 .product-designer h2 {
   font-size: 50px;

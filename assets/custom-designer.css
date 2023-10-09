@@ -203,4 +203,7 @@ div#myPopup .header-container p {
     .card-item:not(:last-child) {
         margin-bottom: 30px;
     }
+    .col-xs-12.card-item {
+      flex: 0 0 100% !important;
+   }
 }

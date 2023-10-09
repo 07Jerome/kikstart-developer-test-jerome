@@ -13,11 +13,12 @@
     {%- endif -%}
   </div>
   <div class="row">
-
+  
     {%- for designer in shop.metaobjects.product_ingredients.values -%}
+      
       {%- if designer.enable == true -%}
-
-        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 text-center card-item">
+       
+      <div class="col col-xs-12 text-center card-item">
           <img src="{{ designer.image | img_url: 'medium' }}" alt="{{ designer.image.alt }}">
           <h3>{{ designer.display_name }}</h3>
           {{ designer.brief_description | metafield_tag }}
@@ -45,7 +46,9 @@
 
         </div>
       {%- endif -%}
+
     {%- endfor -%}
+    
   </div>
 </div>
 
@@ -98,6 +101,13 @@
     let designer_popup = $(`.popup-head[data-id="${designerID}"]`).html();
     $('.popup-container .popup-head').html(designer_popup);
     $('#' + target).toggleClass('hide');
-    
+
   });
+
+  /* Responsive Column */
+  let countColumn = $('.col.card-item').length;
+    if(countColumn >= 5) {
+      $(".col.card-item").addClass("col-xl-4 mt-5");
+    }
+    
 </script>
